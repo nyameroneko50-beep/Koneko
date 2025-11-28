@@ -1,94 +1,59 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('registrationForm');
+document.getElementById("regForm").addEventListener("submit", function(event) {
+    event.preventDefault();
 
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
+    let name = document.getElementById("fullname").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let user = document.getElementById("username").value.trim();
+    let pass = document.getElementById("password").value;
+    let confirm = document.getElementById("confirmPassword").value;
+    let id = document.getElementById("studentid").value.trim();
+    let course = document.getElementById("course").value;
 
-        // Reset error messages
-        resetErrors();
+    let errorMsg = document.getElementById("errorMsg");
 
-        // Validate form
-        if (validateForm()) {
-            // Submit the form
-            form.submit();
-        }
-    });
-
-    function validateForm() {
-        let isValid = true;
-
-        // Name validation
-        isValid = isValid && validateName();
-
-        // Email validation
-        isValid = isValid && validateEmail();
-
-        // Password validation
-        isValid = isValid && validatePassword();
-
-        // Confirm Password validation
-        isValid = isValid && validateConfirmPassword();
-
-        return isValid;
+    // Check empty fields
+    if (!name || !email || !user || !pass || !confirm || !id || !course) {
+        errorMsg.textContent = "Please complete all fields.";
+        return;
     }
 
-    function validateName() {
-        const nameInput = document.getElementById('name');
-        const nameErr = document.getElementById('nameErr');
-
-        if (nameInput.value.trim() === '') {
-            nameErr.textContent = 'Name is required';
-            return false;
-        } else {
-            nameErr.textContent = '';
-            return true;
-        }
+    // Email check
+    let emailCheck = /\S+@\S+\.\S+/;
+    if (!emailCheck.test(email)) {
+        errorMsg.textContent = "Invalid email.";
+        return;
     }
 
-    function validateEmail() {
-        const emailInput = document.getElementById('email');
-        const emailErr = document.getElementById('emailErr');
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (!emailRegex.test(emailInput.value)) {
-            emailErr.textContent = 'Invalid email format';
-            return false;
-        } else {
-            emailErr.textContent = '';
-            return true;
-        }
+    // Username must be 4+ chars
+    if (user.length < 4) {
+        errorMsg.textContent = "Username must be at least 4 characters.";
+        return;
     }
 
-    function validatePassword() {
-        const passwordInput = document.getElementById('password');
-        const passwordErr = document.getElementById('passwordErr');
-
-        if (passwordInput.value.length < 8) {
-            passwordErr.textContent = 'Password must be at least 8 characters';
-            return false;
-        } else {
-            passwordErr.textContent = '';
-            return true;
-        }
+    // Password rules
+    if (pass.length < 6) {
+        errorMsg.textContent = "Password must be at least 6 characters.";
+        return;
     }
 
-    function validateConfirmPassword() {
-        const passwordInput = document.getElementById('password');
-        const confirmPasswordInput = document.getElementById('confirmPassword');
-        const confirmPasswordErr = document.getElementById('confirmPasswordErr');
-
-        if (passwordInput.value !== confirmPasswordInput.value) {
-            confirmPasswordErr.textContent = 'Passwords do not match';
-            return false;
-        } else {
-            confirmPasswordErr.textContent = '';
-            return true;
-        }
+    if (pass !== confirm) {
+        errorMsg.textContent = "Passwords do not match.";
+        return;
     }
 
-    function resetErrors() {
-        document.querySelectorAll('.error').forEach(function(error) {
-            error.textContent = '';
-        });
+    // Student ID numeric
+    if (isNaN(id)) {
+        errorMsg.textContent = "Student ID must be numbers only.";
+        return;
     }
+
+    // Passed all checks
+    errorMsg.textContent = "";
+
+    document.getElementById("popup").style.display = "flex";
+
+    document.getElementById("closePopup").onclick = () => {
+        document.getElementById("popup").style.display = "none";
+        this.submit();
+    };
 });
