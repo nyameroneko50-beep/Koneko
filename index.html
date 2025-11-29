@@ -4,52 +4,59 @@
     <title>Registration Form</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div class="container">
-    <h2>Registration Form</h2>
+    <h2>Register</h2>
 
-    <form id="regForm" action="submit.php" method="POST">
+    <form id="regForm" method="POST" action="submit.php">
 
-        <label>Full Name</label>
-        <input type="text" name="fullname" id="fullname" placeholder="Enter full name">
-
-        <label>Email</label>
-        <input type="text" name="email" id="email" placeholder="Enter email">
-
+        <!-- Username -->
         <label>Username</label>
-        <input type="text" name="username" id="username" placeholder="Choose a username">
+        <input type="text" id="username" name="username">
+        <div class="error" id="userErr"></div>
 
+        <!-- Full Name -->
+        <label>Full Name</label>
+        <input type="text" id="fullname" name="fullname">
+        <div class="error" id="nameErr"></div>
+
+        <!-- Email -->
+        <label>Email</label>
+        <input type="text" id="email" name="email">
+        <div class="error" id="emailErr"></div>
+
+        <!-- Gender -->
+        <label>Gender</label>
+        <div class="gender-box">
+            <label><input type="radio" name="gender" value="Male"> Male</label>
+            <label><input type="radio" name="gender" value="Female"> Female</label>
+            <label><input type="radio" name="gender" value="Other"> Other</label>
+        </div>
+        <div class="error" id="genderErr"></div>
+
+        <!-- Password -->
         <label>Password</label>
-        <input type="password" name="password" id="password" placeholder="Enter password">
+        <div class="pass-wrap">
+            <input type="password" id="password" name="password">
+            <span class="togglePass" onclick="togglePassword('password', this)">👁</span>
+        </div>
+        <div class="error" id="passErr"></div>
 
+        <!-- Confirm Password -->
         <label>Confirm Password</label>
-        <input type="password" id="confirmPassword" placeholder="Re-enter password">
+        <div class="pass-wrap">
+            <input type="password" id="confirm" name="confirm">
+            <span class="togglePass" onclick="togglePassword('confirm', this)">👁</span>
+        </div>
+        <div class="error" id="confirmErr"></div>
 
-        <label>Student ID</label>
-        <input type="text" name="studentid" id="studentid" placeholder="Enter ID">
-
-        <label>Course</label>
-        <select name="course" id="course">
-            <option value="">Select Course</option>
-            <option>BSIT</option>
-            <option>BSCS</option>
-            <option>BSEMC</option>
-        </select>
-
-        <button type="submit">Register</button>
-
-        <p id="errorMsg"></p>
+        <button type="submit">Submit</button>
+        <button type="button" id="clearBtn">Clear</button>
     </form>
-</div>
 
-<!-- Success Popup -->
-<div id="popup" class="popup">
-    <div class="popup-box">
-        <h3>✔ Registration Complete</h3>
-        <p>Your account has been created successfully!</p>
-        <button id="closePopup">OK</button>
-    </div>
+    <div id="successBox">Registration Successful!</div>
 </div>
 
 <script src="script.js"></script>
