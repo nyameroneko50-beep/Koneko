@@ -26,18 +26,17 @@ body {
 }
 
 .form-title {
-    text-align: center;
-    font-size: 26px;
+    font-size: 28px;
     font-weight: bold;
-    color: #2a3d66;
-    margin-bottom: 15px;
+    text-align: center;
+    margin-bottom: 8px;
 }
 
 .title-line {
-    width: 120px;
+    width: 60%;
     height: 3px;
-    background: #4a72ff;
-    margin: 6px auto 15px;
+    background-color: #6BBEFF;
+    margin: 0 auto 20px;
     border-radius: 3px;
 }
 
