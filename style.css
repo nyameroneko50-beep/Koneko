@@ -31,14 +31,6 @@ body {
     font-weight: bold;
 }
 
-.title-line {
-    width: 60%;
-    height: 4px;
-    background: #5aa8ff;
-    margin: 6px auto 20px auto;
-    border-radius: 2px;
-}
-
 .group {
     margin-bottom: 15px;
 }
