@@ -19,9 +19,9 @@ document.getElementById("regForm").addEventListener("submit", function(e) {
     let username = document.getElementById("username");
     let fullname = document.getElementById("fullname");
     let email = document.getElementById("email");
+    let phone = document.getElementById("phone");
     let password = document.getElementById("password");
     let cpassword = document.getElementById("cpassword");
-
     let gender = document.querySelector("input[name='gender']:checked");
 
     // Username
@@ -34,7 +34,7 @@ document.getElementById("regForm").addEventListener("submit", function(e) {
         document.getElementById("userError").textContent = "";
     }
 
-    // Fullname
+    // Full name
     if (fullname.value.trim() === "") {
         fullname.classList.add("invalid");
         document.getElementById("nameError").textContent = "Full name is required";
@@ -52,6 +52,20 @@ document.getElementById("regForm").addEventListener("submit", function(e) {
     } else {
         email.classList.replace("invalid", "valid");
         document.getElementById("emailError").textContent = "";
+    }
+
+    // ⭐ Phone Number
+    if (phone.value.trim() === "") {
+        phone.classList.add("invalid");
+        document.getElementById("phoneError").textContent = "Phone number is required";
+        isValid = false;
+    } else if (!/^[0-9]{10,11}$/.test(phone.value)) {
+        phone.classList.add("invalid");
+        document.getElementById("phoneError").textContent = "Enter 10–11 digits only";
+        isValid = false;
+    } else {
+        phone.classList.replace("invalid", "valid");
+        document.getElementById("phoneError").textContent = "";
     }
 
     // Gender
@@ -82,6 +96,7 @@ document.getElementById("regForm").addEventListener("submit", function(e) {
         document.getElementById("cpassError").textContent = "";
     }
 
+    // SUCCESS
     if (isValid) {
         document.getElementById("popup").style.right = "20px";
         setTimeout(() => {
@@ -90,5 +105,4 @@ document.getElementById("regForm").addEventListener("submit", function(e) {
 
         this.submit();
     }
-
 });
