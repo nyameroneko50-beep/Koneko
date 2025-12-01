@@ -5,13 +5,15 @@
     <title>Registration Form</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div class="header">Registration Form Validator</div>
 
 <div class="form-card">
+
     <h2 class="form-title">Registration Form</h2>
-    
+
     <form id="regForm" action="register.php" method="POST">
 
         <div class="group">
@@ -30,6 +32,13 @@
             <label>Email:</label>
             <input type="text" id="email" name="email">
             <small class="error" id="emailError"></small>
+        </div>
+
+        <!-- ⭐ NEW: PHONE NUMBER -->
+        <div class="group">
+            <label>Phone Number:</label>
+            <input type="text" id="phone" name="phone">
+            <small class="error" id="phoneError"></small>
         </div>
 
         <div class="divider">Gender:</div>
