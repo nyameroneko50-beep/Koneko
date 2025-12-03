@@ -19,7 +19,11 @@ if(isset($_POST['id'])){
             WHERE id=$id";
 
     if($conn->query($sql) === TRUE){
-        echo "<script>alert('User updated successfully!'); window.location='view_users.php';</script>";
+        // Alert and automatically go back to registration form
+        echo "<script>
+                alert('User updated successfully!');
+                window.location='index.html';
+              </script>";
         exit();
     } else {
         echo "Error updating record: " . $conn->error;
@@ -62,19 +66,19 @@ if(isset($_GET['id'])){
         <input type="hidden" name="id" value="<?= $user['id'] ?>">
 
         <label>Username</label>
-        <input type="text" name="username" value="<?= $user['username'] ?>">
+        <input type="text" name="username" value="<?= $user['username'] ?>" required>
 
         <label>Full Name</label>
-        <input type="text" name="fullname" value="<?= $user['fullname'] ?>">
+        <input type="text" name="fullname" value="<?= $user['fullname'] ?>" required>
 
         <label>Email</label>
-        <input type="text" name="email" value="<?= $user['email'] ?>">
+        <input type="text" name="email" value="<?= $user['email'] ?>" required>
 
         <label>Phone</label>
-        <input type="text" name="phone" value="<?= $user['phone'] ?>">
+        <input type="text" name="phone" value="<?= $user['phone'] ?>" required>
 
         <label>Gender</label>
-        <select name="gender">
+        <select name="gender" required>
             <option <?= $user['gender']=="Male" ? "selected" : "" ?>>Male</option>
             <option <?= $user['gender']=="Female" ? "selected" : "" ?>>Female</option>
             <option <?= $user['gender']=="Other" ? "selected" : "" ?>>Other</option>
@@ -83,7 +87,8 @@ if(isset($_GET['id'])){
         <button type="submit">Update</button>
     </form>
 
-    <a href="view_users.php">Back</a>
+    <a href="index.html">Back to Registration Form</a>
+    <a href="view_users.php">Back to Users List</a>
 </div>
 
 </body>
