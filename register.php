@@ -6,7 +6,6 @@ $pass = "mOyAlhhHuQ";
 $dbname = "if0_40563746_registration_db";
 
 $conn = new mysqli($host, $user, $pass, $dbname);
-
 if ($conn->connect_error) {
     die("Connection Failed: " . $conn->connect_error);
 }
@@ -22,11 +21,14 @@ $hashed = password_hash($password, PASSWORD_DEFAULT);
 
 $stmt = $conn->prepare("INSERT INTO users (username, fullname, email, phone, gender, password)
                         VALUES (?, ?, ?, ?, ?, ?)");
-
 $stmt->bind_param("ssssss", $username, $fullname, $email, $phone, $gender, $hashed);
 
 if ($stmt->execute()) {
-    echo "Registration Successful!";
+    // Show welcome message and redirect to view_users.php
+    echo "<script>
+            alert('Registration Successful! Welcome, $username!');
+            window.location='view_users.php';
+          </script>";
 } else {
     echo "Error: " . $stmt->error;
 }
