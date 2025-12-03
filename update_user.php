@@ -26,8 +26,14 @@ $sql = "UPDATE users SET
         WHERE id=$id";
 
 if ($conn->query($sql) === TRUE) {
-    echo "<script>alert('User updated successfully!'); window.location='view_users.php';</script>";
+
+    echo "
+    <h2>User updated successfully!</h2>
+    <a href='view_users.php'>Back to View Users</a><br><br>
+    <a href='index.html'>Back to Registration Form</a>
+    ";
+
 } else {
-    echo "Error: " . $conn->error;
+    echo 'Error: ' . $conn->error;
 }
 ?>
