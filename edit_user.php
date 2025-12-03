@@ -1,22 +1,40 @@
 <?php
-$host = "sql110.infinityfree.com";
-$user = "if0_40563746";
-$pass = "mOyAlhhHuQ";
-$dbname = "if0_40563746_registration_db";
+include 'db_connect.php';
 
-$conn = new mysqli($host, $user, $pass, $dbname);
+// Update logic
+if(isset($_POST['id'])){
+    $id = $_POST['id'];
+    $username = $_POST['username'];
+    $fullname = $_POST['fullname'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $gender = $_POST['gender'];
 
-if ($conn->connect_error) {
-    die("Connection Failed: " . $conn->connect_error);
+    $sql = "UPDATE users SET 
+            username='$username', 
+            fullname='$fullname', 
+            email='$email', 
+            phone='$phone', 
+            gender='$gender' 
+            WHERE id=$id";
+
+    if($conn->query($sql) === TRUE){
+        echo "<script>alert('User updated successfully!'); window.location='view_users.php';</script>";
+        exit();
+    } else {
+        echo "Error updating record: " . $conn->error;
+    }
 }
 
-// Get User ID
-$id = $_GET['id'];
-
-// Fetch selected user
-$sql = "SELECT * FROM users WHERE id = $id";
-$result = $conn->query($sql);
-$user = $result->fetch_assoc();
+// Fetch user data for form
+if(isset($_GET['id'])){
+    $id = $_GET['id'];
+    $result = $conn->query("SELECT * FROM users WHERE id=$id");
+    $user = $result->fetch_assoc();
+} else {
+    echo "No ID provided!";
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -30,17 +48,8 @@ $user = $result->fetch_assoc();
             padding: 20px; background: white;
             border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
-        input, select {
-            width: 100%; padding: 8px;
-            margin-bottom: 10px; border-radius: 6px;
-            border: 1px solid #aaa;
-        }
-        button {
-            width: 100%; padding: 10px;
-            background: #4a73d1; border: none;
-            color: white; border-radius: 6px;
-            cursor: pointer;
-        }
+        input, select { width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 6px; border: 1px solid #aaa; }
+        button { width: 100%; padding: 10px; background: #4a73d1; border: none; color: white; border-radius: 6px; cursor: pointer; }
         a { display: block; text-align: center; margin-top: 10px; }
     </style>
 </head>
@@ -49,26 +58,26 @@ $user = $result->fetch_assoc();
 <div class="card">
     <h2>Edit User</h2>
 
-    <form method="POST" action="update_user.php">
-        <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+    <form method="POST" action="">
+        <input type="hidden" name="id" value="<?= $user['id'] ?>">
 
         <label>Username</label>
-        <input type="text" name="username" value="<?php echo $user['username']; ?>">
+        <input type="text" name="username" value="<?= $user['username'] ?>">
 
         <label>Full Name</label>
-        <input type="text" name="fullname" value="<?php echo $user['fullname']; ?>">
+        <input type="text" name="fullname" value="<?= $user['fullname'] ?>">
 
         <label>Email</label>
-        <input type="text" name="email" value="<?php echo $user['email']; ?>">
+        <input type="text" name="email" value="<?= $user['email'] ?>">
 
         <label>Phone</label>
-        <input type="text" name="phone" value="<?php echo $user['phone']; ?>">
+        <input type="text" name="phone" value="<?= $user['phone'] ?>">
 
         <label>Gender</label>
         <select name="gender">
-            <option <?php if($user['gender']=="Male") echo "selected"; ?>>Male</option>
-            <option <?php if($user['gender']=="Female") echo "selected"; ?>>Female</option>
-            <option <?php if($user['gender']=="Other") echo "selected"; ?>>Other</option>
+            <option <?= $user['gender']=="Male" ? "selected" : "" ?>>Male</option>
+            <option <?= $user['gender']=="Female" ? "selected" : "" ?>>Female</option>
+            <option <?= $user['gender']=="Other" ? "selected" : "" ?>>Other</option>
         </select>
 
         <button type="submit">Update</button>
