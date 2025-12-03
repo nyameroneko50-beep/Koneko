@@ -1,24 +1,17 @@
 <?php
-$host = "sql110.infinityfree.com";
-$user = "if0_40563746";
-$pass = "mOyAlhhHuQ";
-$dbname = "if0_40563746_registration_db";
+include 'db_connect.php';
 
-$conn = new mysqli($host, $user, $pass, $dbname);
+if(isset($_GET['id'])){
+    $id = $_GET['id'];
 
-if ($conn->connect_error) {
-    die("Connection Failed: " . $conn->connect_error);
-}
+    $sql = "DELETE FROM users WHERE id=$id";
 
-$id = $_GET['id'];
-
-$sql = "DELETE FROM users WHERE id = $id";
-
-if ($conn->query($sql) === TRUE) {
-    echo "<script>alert('User deleted successfully!'); window.location='view_users.php';</script>";
+    if($conn->query($sql) === TRUE){
+        echo "<script>alert('User deleted successfully!'); window.location='view_users.php';</script>";
+    } else {
+        echo "Error deleting record: " . $conn->error;
+    }
 } else {
-    echo "Error deleting record: " . $conn->error;
+    echo "No ID provided!";
 }
-
-$conn->close();
 ?>
