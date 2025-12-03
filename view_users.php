@@ -19,6 +19,19 @@ $result = $conn->query($sql);
         .btn { padding: 6px 10px; border-radius: 5px; text-decoration: none; font-size: 14px; }
         .edit { background: #4caf50; color: white; }
         .delete { background: #e53935; color: white; }
+        .back-btn { 
+            display: block; 
+            width: 200px; 
+            margin: 20px auto 0; 
+            padding: 10px; 
+            background: #4a73d1; 
+            color: white; 
+            text-align: center; 
+            border-radius: 6px; 
+            text-decoration: none; 
+            font-size: 16px; 
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -52,6 +65,9 @@ $result = $conn->query($sql);
     <?php endwhile; ?>
 
 </table>
+
+<!-- Back to Registration Form button -->
+<a href="index.html" class="back-btn">Back to Registration Form</a>
 
 </body>
 </html>
