@@ -2,7 +2,7 @@
 
 $host = "sql110.infinityfree.com";
 $user = "if0_40563746";
-$pass = "YOUR_VPANEL_PASSWORD_HERE"; 
+$pass = "mOyAlhhHuQ"; 
 $dbname = "if0_40563746_registration_db";
 
 $conn = new mysqli($host, $user, $pass, $dbname);
