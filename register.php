@@ -2,7 +2,7 @@
 
 $host = "sql110.infinityfree.com";
 $user = "if0_40563746";
-$pass = "mOyAlhhHuQ"; 
+$pass = "mOyAlhhHuQ";
 $dbname = "if0_40563746_registration_db";
 
 $conn = new mysqli($host, $user, $pass, $dbname);
@@ -18,15 +18,20 @@ $phone = $_POST['phone'];
 $gender = $_POST['gender'];
 $password = $_POST['password'];
 
-$sql = "INSERT INTO users (username, fullname, email, phone, gender, password)
-        VALUES ('$username', '$fullname', '$email', '$phone', '$gender', '$password')";
+$hashed = password_hash($password, PASSWORD_DEFAULT);
 
-if ($conn->query($sql) === TRUE) {
+$stmt = $conn->prepare("INSERT INTO users (username, fullname, email, phone, gender, password)
+                        VALUES (?, ?, ?, ?, ?, ?)");
+
+$stmt->bind_param("ssssss", $username, $fullname, $email, $phone, $gender, $hashed);
+
+if ($stmt->execute()) {
     echo "Registration Successful!";
 } else {
-    echo "Error: " . $conn->error;
+    echo "Error: " . $stmt->error;
 }
 
+$stmt->close();
 $conn->close();
 
 ?>
