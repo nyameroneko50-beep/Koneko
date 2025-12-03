@@ -1,7 +1,7 @@
 <?php
 $host = "sql110.infinityfree.com"; 
 $user = "if0_40563746";
-$pass = "YOUR_VPANEL_PASSWORD"; 
+$pass = "mOyAlhhHuQ"; 
 $db   = "if0_40563746_registration_db";
 
 $conn = mysqli_connect($host, $user, $pass, $db);
